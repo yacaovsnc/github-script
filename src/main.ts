@@ -1,15 +1,15 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
-import { context, getOctokit } from '@actions/github'
-import { defaults as defaultGitHubOptions } from '@actions/github/lib/utils'
+import {context, getOctokit} from '@actions/github'
+import {defaults as defaultGitHubOptions} from '@actions/github/lib/utils'
 import * as glob from '@actions/glob'
 import * as io from '@actions/io'
-import { requestLog } from '@octokit/plugin-request-log'
-import { retry } from '@octokit/plugin-retry'
-import { RequestRequestOptions } from '@octokit/types'
-import { callAsyncFunction } from './async-function'
-import { RetryOptions, getRetryOptions, parseNumberArray } from './retry-options'
-import { wrapRequire } from './wrap-require'
+import {requestLog} from '@octokit/plugin-request-log'
+import {retry} from '@octokit/plugin-retry'
+import {RequestRequestOptions} from '@octokit/types'
+import {callAsyncFunction} from './async-function'
+import {RetryOptions, getRetryOptions, parseNumberArray} from './retry-options'
+import {wrapRequire} from './wrap-require'
 
 process.on('unhandledRejection', handleError)
 main().catch(handleError)
@@ -24,7 +24,7 @@ type Options = {
 }
 
 async function main(): Promise<void> {
-  const token = core.getInput('github-token', { required: true })
+  const token = core.getInput('github-token', {required: true})
   const debug = core.getBooleanInput('debug')
   const userAgent = core.getInput('user-agent')
   const previews = core.getInput('previews')
@@ -55,7 +55,7 @@ async function main(): Promise<void> {
 
   const github = getOctokit(token, opts, retry, requestLog)
   //const github = getOctokit(token, opts, retry)
-  const script = core.getInput('script', { required: true })
+  const script = core.getInput('script', {required: true})
 
   // Using property/value shorthand on `require` (e.g. `{require}`) causes compilation errors.
   const result = await callAsyncFunction(
